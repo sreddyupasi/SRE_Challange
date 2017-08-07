@@ -1,0 +1,46 @@
+---
+#- include_vars: vaulted.yml
+
+- name: Create a NGINX security group
+  ec2_group:
+    name: "NGINX-SG"
+    description: "Jenkins Security Groups"
+    vpc_id: "{{VPC_ID}}"
+    region: "us-east-1"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+
+      - proto: tcp
+        from_port: 443
+        to_port: 443
+        cidr_ip: 10.230.36.0/0
+  ignore_errors: yes
+
+- name: Create an NGINX instance from image
+  ec2:
+    key_name: "{{ EC2_PUB_KEY }}"
+    instance_type: t2.micro
+    image: "{{ AMI_IMAGE }}"
+    wait: yes
+    group: "NGINX-SG"
+    count: 1
+    region: "us-east-1"
+    vpc_subnet_id: "{{ EC2_SUBNETS[0] }}"
+    instance_tags:
+       Application: "{{ EC2_APPLICATION_NAME  }}" 
+       CreatorName: "{{ EC2_CREATOR_NAME  }}" 
+       Department: "{{ EC2_DEPARTMENT }}"
+       Name: "{{ EC2_NAME }}"
+       Role: "{{ EC2_ROLE }}"
+       TeamName: "{{ EC2_TEAMNAME }}"
+       Version:  "{{ EC2_VERSION  }}"
+    monitoring: yes
+  register: ec2
