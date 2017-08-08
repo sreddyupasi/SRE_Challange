@@ -1,18 +1,2 @@
 ---
-# Variables that can provide as extra vars
-VPC_ID: "vpc-b3bd0ad5"
-EC2_PUB_KEY: "deadpool"
-EC2_REGION: "us-east-1" # N.Virginia
-EC2_SUBNETS: ["subnet-6ef59535"]
-EC2_APPLICATION_NAME: "NGINX"
-EC2_CREATOR_NAME: "YANIV RON"
-EC2_DEPARTMENT: "DEPARTMENT"
-EC2_NAME: "NGINX-WEB"
-EC2_ROLE: "WEB"
-EC2_TEAMNAME: "WEB_PLATFORM"
-EC2_VERSION: "NGINX 1.20"
-
-# For Route53
-ROUTE53_INT_ZONE: "deadpool.com"
-ROUTE53_RECORD: "waf-sample.deadpool.com"
-JENKINS_ROUTE53_RECORD: "jenkins-sample.deadpool.com" 
+SERVER_IP: "10.230.38.245"
